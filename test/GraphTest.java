@@ -46,8 +46,7 @@ public class GraphTest {
         leastSquares.calcSquareSumX(); // calculate sum of square of all X points
         leastSquares.computeSlope(leastSquares.getN(), leastSquares.getSumXY(), leastSquares.getSumX(), leastSquares.getSumY(), leastSquares.getSquareSumX());
         leastSquares.calcYint(); //calculate the y intercept of our equation
-        leastSquares.getmin_x(); // sorts the X points in ascending order
-        leastSquares.getmax_y(); //
+   
 
         System.out.println("Sum of X: " + leastSquares.getSumX()); // test for sum of all Xpoints // Passed
         System.out.println("Sum of Y: " + leastSquares.getSumY()); //passed
@@ -56,8 +55,7 @@ public class GraphTest {
         System.out.println("Slope: " + leastSquares.getSlopebo()); //passed
         System.out.println("Y int: " + leastSquares.getYintb1()); //passed
         System.out.println("Our linear equation is Y =" + leastSquares.getSlopebo() + "x + " + leastSquares.getYintb1());
-        System.out.println("Our min x value is " + leastSquares.getMinX()); //passed
-        System.out.println("Our max y value is " + leastSquares.getMaxY()); //passed
+     
  
         
        

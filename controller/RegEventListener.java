@@ -8,18 +8,15 @@ import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
 
 import javax.swing.JFrame;
-
-import model.idemo.lsRegression;
 import model.shapes.Dot;
 import model.shapes.IShapeDraw;
-import model.shapes.Shape;
 import view.MenuScreen;
 import view.plotDemoPanel;
+import view.plotDemoPanel.GameState;
 
 public class RegEventListener implements ActionListener , MouseListener, MouseMotionListener{
 
     private plotDemoPanel panel;
-    private Dot dot;
     private int clicks = 0;
     // private lsRegression regs = new lsRegression(Color.green, 0);
 
@@ -39,13 +36,17 @@ public class RegEventListener implements ActionListener , MouseListener, MouseMo
             window.pack();
             window.revalidate();
         }else if(source == panel.getClearButton()){
+            panel.setGameState(GameState.READY);
             clicks = 0; //resets clicks as it is used for testing the index locations of our objects XY point arrays
             panel.getCanvas().getDots().clear(); // clear dots from screen
+            panel.getCanvas().getyDots().clear();
             panel.getCanvas().getRegs().clearXY(); //clear xy points from object
+            panel.getCanvas().getRegs().clearYLinePoints(); //clear our plotted line y points
             panel.getCanvas().repaint();
             panel.setEquation("");
 
         }else if(source == panel.getplotButton()){
+            panel.setGameState(GameState.PLOTTING);
             panel.getCanvas().getRegs().calcSumX();
             panel.getCanvas().getRegs().calcSumY();
             panel.getCanvas().getRegs().calcSumXY();
@@ -56,6 +57,14 @@ public class RegEventListener implements ActionListener , MouseListener, MouseMo
             panel.getCanvas().getRegs().calcYint();
             String m = "Y = " + panel.getCanvas().getRegs().getSlopebo() + "x + " + panel.getCanvas().getRegs().getYintb1();
             panel.setEquation(m);
+            for(int i = 0; i <= 490; i++){
+            
+            panel.getCanvas().getRegs().calculateYline(i);
+            IShapeDraw shape = getShape( i , (((int)panel.getCanvas().getRegs().getYLinePoint(i)- 491 )* -1), Color.RED, true);
+            panel.getCanvas().getyDots().add(shape);
+            panel.getCanvas().repaint();
+            }
+
         }
 
     }

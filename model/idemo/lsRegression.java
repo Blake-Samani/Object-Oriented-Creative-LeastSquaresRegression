@@ -3,7 +3,6 @@ package model.idemo;
 import java.awt.Color;
 import java.awt.Graphics2D;
 import java.util.ArrayList;
-import java.awt.image.BufferedImage;
 import java.util.Collections;
 
 public class lsRegression extends Regression {
@@ -20,13 +19,13 @@ public class lsRegression extends Regression {
 
     ArrayList<Float> xPoints = new ArrayList<>();
     ArrayList<Float> yPoints = new ArrayList<>();
+    ArrayList<Float> yLinePoints = new ArrayList<>();
     private Color color;
     private float sumX;
     private float sumY;
     private float sumXY;
     private float squareSumX;
-    private float minX;
-    private float maxY;
+    private float yintLine;
     private Pos[] p = new Pos[2]; //position object to hold an x and y for line connecting
 
     public lsRegression(Color color, int n) {
@@ -39,15 +38,7 @@ public class lsRegression extends Regression {
         yPoints.clear();
     }
 
-    public void getmin_x() { // sets minimum x value for line of best fit
 
-        setMinX(Collections.min(xPoints));
-    }
-
-    public void getmax_y() { // sets max y value for line of best fit
-
-        setMaxY(Collections.max(yPoints));
-    }
 
     public void calcSumX() {
         float s = 0;
@@ -96,6 +87,14 @@ public class lsRegression extends Regression {
         yPoints.add(y);
     }
 
+    public void addYLinePoints(float y){
+        yLinePoints.add(y);
+    }
+
+    public void clearYLinePoints(){
+        yLinePoints.clear();
+    }
+
     public float getPointsY(int index){
         return yPoints.get(index);
     }
@@ -118,16 +117,23 @@ public class lsRegression extends Regression {
         return temp.get(temp.size() - 1); // returns max value
     }
 
+    public void calculateYline(float x){
+        yintLine = getSlopebo() * x + getYintb1();
+        yLinePoints.add(yintLine);
+    }
+    
+    public float getYLinePoint(int index){
+        return yLinePoints.get(index);
+    }
+
+    
+
+    public float getYintLine() {
+        return yintLine;
+    }
+
     public Color getColor() {
         return color;
-    }
-
-    public float getMaxY() {
-        return maxY;
-    }
-
-    public float getMinX() {
-        return minX;
     }
 
     public float getSquareSumX() {
@@ -148,14 +154,6 @@ public class lsRegression extends Regression {
 
     public void setColor(Color color) {
         this.color = color;
-    }
-
-    public void setMaxY(float maxY) {
-        this.maxY = maxY;
-    }
-
-    public void setMinX(float minX) {
-        this.minX = minX;
     }
 
     public void setSumX(float sumX) {

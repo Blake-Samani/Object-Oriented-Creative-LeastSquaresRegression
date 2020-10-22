@@ -20,16 +20,22 @@ import java.awt.Color;
 
 public class plotDemoPanel {
 
+    public enum GameState{
+        READY, PLOTTING;
+    }
+
     private JFrame window;
     private JButton quitButton = new JButton("Quit");
     private JButton clearButton = new JButton("Clear");
     private JButton plotButton = new JButton("Calculate");
     private JTextArea equation = new JTextArea();
+    private GameState gameState = GameState.READY;
 
     private plotDemoCanvas canvas;
 
     public plotDemoPanel(JFrame window) {
         this.window = window;
+        window.setTitle("Least Squares Regression");
     }
 
     public void init() {
@@ -93,6 +99,14 @@ public class plotDemoPanel {
     }
     public void setEquation(String m){
         equation.setText(m);
+    }
+
+    public GameState getGameState(){
+        return gameState;
+    }
+
+    public void setGameState(GameState gameState) {
+        this.gameState = gameState;
     }
 }
 

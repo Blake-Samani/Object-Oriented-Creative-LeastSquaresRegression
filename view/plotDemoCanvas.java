@@ -4,9 +4,9 @@ import javax.swing.JPanel;
 
 import model.idemo.IRender;
 import model.idemo.lsRegression;
-import model.images.ImageStore;
-import model.shapes.Dot;
+
 import model.shapes.IShapeDraw;
+import view.plotDemoPanel.GameState;
 
 import java.awt.Color;
 import java.awt.Dimension;
@@ -17,6 +17,7 @@ import java.util.ArrayList;
 public class plotDemoCanvas extends JPanel {
     
     ArrayList<IShapeDraw> dots = new ArrayList<>();
+    ArrayList<IShapeDraw> yDots = new ArrayList<>();
     private plotDemoPanel panel;
     private ArrayList<IRender> picture = new ArrayList<>();
     private lsRegression regs = new lsRegression(Color.BLUE, 0);
@@ -45,6 +46,13 @@ public class plotDemoCanvas extends JPanel {
         }
         g2.setColor(Color.blue);
         g2.drawString(m , 400 , 10);
+
+        if(panel.getGameState() == GameState.PLOTTING){
+            g2.setColor(Color.RED);
+            for(var d: yDots){
+                d.render(g2);
+            }
+        }
     }
 
     public ArrayList<IRender> getPicture() {
@@ -53,6 +61,10 @@ public class plotDemoCanvas extends JPanel {
 
     public ArrayList<IShapeDraw> getDots() {
         return dots;
+    }
+
+    public ArrayList<IShapeDraw> getyDots() {
+        return yDots;
     }
 
     public lsRegression getRegs() {
