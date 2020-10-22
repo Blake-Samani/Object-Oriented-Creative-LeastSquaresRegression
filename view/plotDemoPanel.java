@@ -6,24 +6,25 @@ import java.util.ArrayList;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+import javax.swing.JTextArea;
+import javax.swing.JTextField;
 
 import controller.RegEventListener;
 import model.idemo.IRender;
 import model.idemo.lsRegression;
 import model.images.ImageStore;
+import java.awt.GridLayout;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
-import java.awt.event.MouseMotionListener;
 
 public class plotDemoPanel {
 
     private JFrame window;
     private JButton quitButton = new JButton("Quit");
     private JButton clearButton = new JButton("Clear");
-    private JButton plotButton = new JButton("Plot");
+    private JButton plotButton = new JButton("Calculate");
+    private JTextArea equation = new JTextArea();
 
     private plotDemoCanvas canvas;
 
@@ -40,14 +41,14 @@ public class plotDemoPanel {
         southPanel.add(quitButton);
         southPanel.add(clearButton);
         southPanel.add(plotButton);
+        southPanel.add(equation);
+        southPanel.setLayout(new GridLayout(2,4));
 
         // title border
 
         cp.add(BorderLayout.CENTER, canvas);
         cp.add(BorderLayout.SOUTH, southPanel);
-        final RegMouseEvent mouseEvent = new RegMouseEvent(); // mouse event listener
-        canvas.addMouseListener(mouseEvent);
-        canvas.addMouseMotionListener(mouseEvent);
+
 
         populatePicture(); // call to draw graph image
 
@@ -55,6 +56,9 @@ public class plotDemoPanel {
         quitButton.addActionListener(listener);
         clearButton.addActionListener(listener);
         plotButton.addActionListener(listener);
+         // mouse event listener
+        canvas.addMouseListener(listener);
+        canvas.addMouseMotionListener(listener);
     }
 
     private void populatePicture() {
@@ -79,36 +83,16 @@ public class plotDemoPanel {
     public JFrame getWindow() {
         return window;
     }
-}
 
-class RegMouseEvent implements MouseListener, MouseMotionListener {
-
-  
-
-    @Override
-    public void mousePressed(MouseEvent e) {
-        // TODO Auto-generated method stub
-
-    }
-    @Override
-    public void mouseClicked(MouseEvent e) {}
-    
-    @Override
-    public void mouseReleased(MouseEvent e) {}
-
-    @Override
-    public void mouseEntered(MouseEvent e) {}
-
-    @Override
-    public void mouseExited(MouseEvent e) {}
-
-    @Override
-    public void mouseDragged(MouseEvent e) {}
-
-    @Override
-    public void mouseMoved(MouseEvent e) {
-        System.out.println("Location: " + e.getX() + " , " + ((e.getY() - 500 )* -1));
-
+    public plotDemoCanvas getCanvas() {
+        return canvas;
     }
 
+    public JTextArea getEquation() {
+        return equation;
+    }
+    public void setEquation(String m){
+        equation.setText(m);
+    }
 }
+

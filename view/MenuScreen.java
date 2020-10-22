@@ -24,7 +24,7 @@ public class MenuScreen {
 
         JPanel panel = new JPanel();
         panel.setPreferredSize(new Dimension(400,200));
-        panel.setLayout(new GridLayout(2,1));
+        panel.setLayout(new GridLayout(1,1));
 
         JButton plotButton = new JButton("Plot Demo");
         panel.add(plotButton);

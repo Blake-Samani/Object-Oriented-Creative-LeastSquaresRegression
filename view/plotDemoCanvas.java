@@ -3,6 +3,7 @@ package view;
 import javax.swing.JPanel;
 
 import model.idemo.IRender;
+import model.idemo.lsRegression;
 import model.images.ImageStore;
 import model.shapes.Dot;
 import model.shapes.IShapeDraw;
@@ -18,6 +19,8 @@ public class plotDemoCanvas extends JPanel {
     ArrayList<IShapeDraw> dots = new ArrayList<>();
     private plotDemoPanel panel;
     private ArrayList<IRender> picture = new ArrayList<>();
+    private lsRegression regs = new lsRegression(Color.BLUE, 0);
+    private String m = "";
 
     public plotDemoCanvas(plotDemoPanel panel){
         this.panel = panel;
@@ -35,14 +38,29 @@ public class plotDemoCanvas extends JPanel {
         for(var p: picture){
             p.render(g2);
         }
+        g2.setColor(regs.getColor());
         // g2.drawImage(ImageStore.plane, null, 0, 0);
         for(var s: dots){
             s.render(g2);
         }
+        g2.setColor(Color.blue);
+        g2.drawString(m , 400 , 10);
     }
 
     public ArrayList<IRender> getPicture() {
         return picture;
+    }
+
+    public ArrayList<IShapeDraw> getDots() {
+        return dots;
+    }
+
+    public lsRegression getRegs() {
+        return regs;
+    }
+
+    public void setM(String m) {
+        this.m = m;
     }
 
     // private void testRendering() {

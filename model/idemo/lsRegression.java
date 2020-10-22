@@ -8,7 +8,7 @@ import java.util.Collections;
 
 public class lsRegression extends Regression {
 
-    public class Pos{ //position class for mouse click tracking
+    public class Pos{ //position class for line of best fit drawing/connecting
         public int x;
         public int y;
         public Pos(int x, int y){
@@ -16,6 +16,7 @@ public class lsRegression extends Regression {
             this.y = y;
         }
     }
+
 
     ArrayList<Float> xPoints = new ArrayList<>();
     ArrayList<Float> yPoints = new ArrayList<>();
@@ -31,6 +32,11 @@ public class lsRegression extends Regression {
     public lsRegression(Color color, int n) {
         super(n);
         this.color = color;
+    }
+
+    public void clearXY(){
+        xPoints.clear();
+        yPoints.clear();
     }
 
     public void getmin_x() { // sets minimum x value for line of best fit
@@ -88,6 +94,14 @@ public class lsRegression extends Regression {
 
     public void addPointsY(float y) {
         yPoints.add(y);
+    }
+
+    public float getPointsY(int index){
+        return yPoints.get(index);
+    }
+
+    public float getPointsX(int index){
+        return xPoints.get(index);
     }
 
     public float getMinX(ArrayList<Float> xPoints) {
